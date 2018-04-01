@@ -1,0 +1,99 @@
+{
+  "players": [
+    {
+      "_id": "5ac14b11aefed7c9d9c2fc1a",
+      "firstName": "Perez",
+      "lastName": "Oneal",
+      "skills": [
+        {
+          "type": "Shooting",
+          "rating": 45
+        },
+        {
+          "type": "Skating",
+          "rating": 76
+        },
+        {
+          "type": "Checking",
+          "rating": 51
+        }
+      ]
+    },
+    {
+      "_id": "5ac14b11c1d89a9b46b7abb9",
+      "firstName": "Tricia",
+      "lastName": "Roach",
+      "skills": [
+        {
+          "type": "Shooting",
+          "rating": 81
+        },
+        {
+          "type": "Skating",
+          "rating": 51
+        },
+        {
+          "type": "Checking",
+          "rating": 88
+        }
+      ]
+    },
+    {
+      "_id": "5ac14b11862d72745d92303b",
+      "firstName": "Blanca",
+      "lastName": "Gordon",
+      "skills": [
+        {
+          "type": "Shooting",
+          "rating": 77
+        },
+        {
+          "type": "Skating",
+          "rating": 56
+        },
+        {
+          "type": "Checking",
+          "rating": 31
+        }
+      ]
+    },
+    {
+      "_id": "5ac14b11131d4df56e387626",
+      "firstName": "Young",
+      "lastName": "Hale",
+      "skills": [
+        {
+          "type": "Shooting",
+          "rating": 37
+        },
+        {
+          "type": "Skating",
+          "rating": 61
+        },
+        {
+          "type": "Checking",
+          "rating": 71
+        }
+      ]
+    },
+    {
+      "_id": "5ac14b11aae40f420a4329f0",
+      "firstName": "Goff",
+      "lastName": "Alston",
+      "skills": [
+        {
+          "type": "Shooting",
+          "rating": 60
+        },
+        {
+          "type": "Skating",
+          "rating": 88
+        },
+        {
+          "type": "Checking",
+          "rating": 24
+        }
+      ]
+    }
+  ]
+}
