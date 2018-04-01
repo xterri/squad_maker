@@ -1,3 +1,14 @@
+/*
+** SQUAD MAKER JS CODE
+*/
+// const playerData =      
+
+
+/*********************************************/
+
+/*
+** FINGERS II GAME JS CODE
+*/
 var userNbr;
 const errorMsg = document.getElementById('error')
 
