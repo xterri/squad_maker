@@ -5,13 +5,13 @@ const bodyParser    = require('body-parser'); // handles HTTP POST requests
 const config        = require('config');
 const guesser       = require('./src/fingerGuess');
 
-const dataCheck     = require('./src/squadMaker');
+const parseData     = require('./src/squadMaker');
 
 // get playerData from config/default.js
-// apply to js functions, not necessary here
 const playerData = require('./test/' + config.get('playerData'));
 
 const PORT = 5000;
+var results = {};
 
 // set up server side with express 
 const app = express();
@@ -27,43 +27,41 @@ app.set('view engine', 'ejs');
     // https://stackoverflow.com/questions/29619721/add-stylesheet-to-express-app
 app.use(express.static('public'));
 
-/* SQUAD-MAKER / MAIN PAGE */
+/*** SQUAD-MAKER / MAIN PAGE ***/
 app.route('/')
     .get(function(req, res) {
-        let template = {
-            title: "Squad Maker",
-            guess: "___",
-            count: "___",
-            errorMsg: ""
-        }
+        results.title = "Squad Maker";
 
-        res.render('index', template); // arg1 = ejs/html, objects/data to pass
+        // [OPTIONAL] implement a "upload" JSON file section in the code so custom/test files can be uploaded
+
+        // as soon as page is loaded, get & parse the data
+            // parsing may not be necessary but will be helpful to use later w/ everything set
+        let players = parseData(playerData.players);
+
+        results.players = players;
+        
+        res.render('index', results); // arg1 = ejs/html, objects/data to pass
     })
     .post(function(req, res) {
-        let results = guesser(req.body.test);
+        results.title = "Squad Maker";
 
-        results.title = "Squad Maker"
-        // getting post data from index: 
-            // key = name of tag/input; val = whatever was entered/selected
         res.render('index', results);
 });
 
-/* FINGERS GAME PAGE */
+/*** FINGERS GAME PAGE ***/
 app.route('/fingers')
     .get(function(req, res) {
-        let template = {
-            title: "",
-            guess: "___",
-            count: "___",
-            errorMsg: ""
-        }
+        results.title = "Fingers Game";
+        results.guess = "___";
+        results.count = "___";
+        results.errorMsg = "";
 
-        res.render('fingers', template);
+        res.render('fingers', results);
     })
     .post(function(req, res) {
         let results = guesser(req.body.test);
-
         results.title = "Fingers Game";
+
         res.render('fingers', results);
 });
 

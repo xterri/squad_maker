@@ -1,0 +1,6 @@
+.center-div {
+    text-align: center;
+}
+.center-div p, .center-div h4 {
+    margin-top: 20px;
+}

@@ -10,16 +10,7 @@ body {
     background-color: #fff;
     border-radius: 1em;
 }
-.center-div {
-    text-align: center;
-}
-.center-div p, .center-div h4 {
-    margin-top: 20px;
-}
 a:link, a:visited {
     color: #38488f;
     text-decoration: none;
-}
-.row {
-    border: 2px dotted burlywood;
 }

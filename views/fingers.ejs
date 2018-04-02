@@ -1,10 +1,14 @@
 <% include ./partials/header %>
+    <link rel="stylesheet" type="text/css" href="css/fingerStyles.css" />
+</head>
 <body>
     <div class="container">
         <div class="main">
             <div class="center-div">
                 <h1>Fingers Guessing Game</h1>
-        
+
+                <a href="/">Go Home</a>
+    
                 <p>How many fingers are YOU holding up (0-5)?</p>
                 <form action="/fingers" method="post">
                     <select name="test" id="userNbr">
