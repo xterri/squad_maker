@@ -25,17 +25,21 @@ app.set('view engine', 'ejs');
     // https://stackoverflow.com/questions/29619721/add-stylesheet-to-express-app
 app.use(express.static('public'));
 
+app.get('/', function(req, res) {
+    let template = {
+        guess: "___",
+        count: "___",
+        errorMsg: "",
+    }
+    res.render('index', template); // arg1 = ejs/html, objects/data to pass
+});
+
 app.post('/', function(req, res) {
     let results = guesser(req.body.test);
-    console.log(results);
     // getting post data from index: 
         // key = name of tag/input; val = whatever was entered/selected
     res.render('index', results);
 })
-
-app.get('/', function(req, res) {
-    res.render('index', ); // arg1 = ejs/html, objects/data to pass
-});
 
 let port = process.env.PORT || PORT; // production uses differen port
 console.log("Server listening on port " + port);

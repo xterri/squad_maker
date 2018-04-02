@@ -29,23 +29,20 @@
             <p>Program will try and guess how many you're holding up and reveal how many attempts it took to figure it out</p>
     
             <div class="center-div">
-                <% if (errorMsg) { %>
-                    <h1 id="error" style="color: red">
-                        <%= errorMsg %>
+                <% if (errorMsg){ %>
+                    <h1 id="error" style="color: red"><%= errorMsg %>
                     </h1>
                 <% } %>
+
                 <h3>You were holding up 
-                    <% if (guess >= 0 && guess <= 5 ) { %>
+                    <% if (guess === "___" || guess >= 0 && guess <= 5){ %>
                         <%= guess %>
-                    <% } else {%>
-                        ___
                     <% } %>
                 finger(s)!</h3>
+                
                 <h4>It took the program 
-                    <% if (count) { %>
+                    <% if (count){ %>
                         <%= count %>
-                    <% } else {%>
-                        ___
                     <% } %>
                 attempt(s) to figure it out!</h4>
             </div>
