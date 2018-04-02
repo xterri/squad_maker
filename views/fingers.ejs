@@ -1,35 +1,32 @@
 <% include ./partials/header %>
-
 <body>
     <div class="container">
         <div class="main">
             <div class="center-div">
-                <h1>Squad Maker</h1>
-
-                Click here for the <a href="/fingers">Fingers Game</a>
-
+                <h1>Fingers Guessing Game</h1>
+        
                 <p>How many fingers are YOU holding up (0-5)?</p>
-                <form action="/" method="post">
+                <form action="/fingers" method="post">
                     <select name="test" id="userNbr">
                         <option>0</option>
                         <option>1</option>
                         <option>2</option>
                         <option>3</option>
-                        <option>4</option>
+                        <option>4</option>                            
                         <option>5</option>
                     </select>                        
                     <button id="submit">Submit</button>
                 </form>
                     
                 <p>Program will try and guess how many you're holding up and reveal how many attempts it took to figure it out</p>
-                    
+                        
                 <!--insert return values here-->
                 <% if (errorMsg){ %>
                     <h1 id="error" style="color: red">
                         <%= errorMsg %>
                     </h1>
                 <% } %>
-
+    
                 <h3>You were holding up 
                     <% if (guess === "___" || guess >= 0 && guess <= 5){ %>
                         <%= guess %>
@@ -44,4 +41,5 @@
             </div>
         </div>
     </div>
+
 <% include ./partials/footer %>

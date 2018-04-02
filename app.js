@@ -5,6 +5,8 @@ const bodyParser    = require('body-parser'); // handles HTTP POST requests
 const config        = require('config');
 const guesser       = require('./src/fingerGuess');
 
+const dataCheck     = require('./src/squadMaker');
+
 // get playerData from config/default.js
 // apply to js functions, not necessary here
 const playerData = require('./test/' + config.get('playerData'));
@@ -25,21 +27,45 @@ app.set('view engine', 'ejs');
     // https://stackoverflow.com/questions/29619721/add-stylesheet-to-express-app
 app.use(express.static('public'));
 
-app.get('/', function(req, res) {
-    let template = {
-        guess: "___",
-        count: "___",
-        errorMsg: "",
-    }
-    res.render('index', template); // arg1 = ejs/html, objects/data to pass
+/* SQUAD-MAKER / MAIN PAGE */
+app.route('/')
+    .get(function(req, res) {
+        let template = {
+            title: "Squad Maker",
+            guess: "___",
+            count: "___",
+            errorMsg: ""
+        }
+
+        res.render('index', template); // arg1 = ejs/html, objects/data to pass
+    })
+    .post(function(req, res) {
+        let results = guesser(req.body.test);
+
+        results.title = "Squad Maker"
+        // getting post data from index: 
+            // key = name of tag/input; val = whatever was entered/selected
+        res.render('index', results);
 });
 
-app.post('/', function(req, res) {
-    let results = guesser(req.body.test);
-    // getting post data from index: 
-        // key = name of tag/input; val = whatever was entered/selected
-    res.render('index', results);
-})
+/* FINGERS GAME PAGE */
+app.route('/fingers')
+    .get(function(req, res) {
+        let template = {
+            title: "",
+            guess: "___",
+            count: "___",
+            errorMsg: ""
+        }
+
+        res.render('fingers', template);
+    })
+    .post(function(req, res) {
+        let results = guesser(req.body.test);
+
+        results.title = "Fingers Game";
+        res.render('fingers', results);
+});
 
 let port = process.env.PORT || PORT; // production uses differen port
 console.log("Server listening on port " + port);
