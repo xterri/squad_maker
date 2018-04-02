@@ -9,6 +9,5 @@ See more information about the challenge at [Squad Maker Challenge](https://gith
 Under construction
 
 ### To Do List
-* Set up a template Web App to use for testing the algorithm
 * Implement the algorithm to be used
 * Beautify the web app
