@@ -6,8 +6,12 @@ See more information about the challenge at [Squad Maker Challenge](https://gith
 ## Built With
 
 ### Demo
-Under construction
+Check out demo hosted on Heroku platform: 
+[Squad Maker](https://squadmaker.herokuapp.com/) (Still in development)
 
 ### To Do List
 * Implement the algorithm to be used
-* Beautify the web app
+* Render results from program / formed teams to the page
+* Make it prettier
+* Extra >> Implement file upload and save it to a database 
+(firebase)
