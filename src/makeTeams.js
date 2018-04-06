@@ -22,7 +22,6 @@ function distanceToAvg(playersArr) {
     }
     playersArr.sort(sortBy('meanDistance', false, 'closestToZero'));
 
-    console.log(playersArr);
     return playersArr;
 };
 
@@ -51,10 +50,10 @@ function makeTeams(playersArr, squadNbr, nbrOfPlayers) {
         var shootAvg = teamResults.squads[i][0]['shooting'];
         var checkAvg = teamResults.squads[i][0]['checking'];
 
-        if (i + 1 === squadNbr && nbrOfPlayers) {
-            i = 0;
-            j++;
-        }
+        // if (i + 1 === squadNbr && nbrOfPlayers) {
+        //     i = 0;
+        //     j++;
+        // }
         for (var j = 1; j <= maxPlayers; j++) {
             if (j === maxPlayers) {
                 let avgScore = teamResults.squads[i];
@@ -67,6 +66,7 @@ function makeTeams(playersArr, squadNbr, nbrOfPlayers) {
                 avgScore.push(avgObjects);
             } else {
                 teamResults.squads[i][j] = playersArr[++k];
+
                 skateAvg += playersArr[k]['skating'];
                 shootAvg += playersArr[k]['shooting'];
                 checkAvg += playersArr[k]['checking'];

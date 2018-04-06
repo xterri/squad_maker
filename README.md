@@ -44,5 +44,6 @@ In the future, I would like to implment a file upload function and handle storin
 
 ### To Do / Improve on List
 * Fix the make teams code to alternate between players being placed on teams
+* Improve / Fix the sortBy function to sort all values (+/-) from closest to furthest to zero
 * Improve on optimization / complexity time (Find alternate solution to getting players averages without using two O(n^2) loops)
 * [EXTRA] Implement file upload and save it to a database (firebase)
