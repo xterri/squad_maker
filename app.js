@@ -32,14 +32,14 @@ app.use(express.static('public'));
 app.route('/')
     .get(function(req, res) {
         results.title = "Squad Maker";
-
+        results.squads = "";
         // [OPTIONAL] implement a "upload" JSON file section in the code so custom/test files can be uploaded
 
         // as soon as page is loaded, get & parse the data
             // parsing may not be necessary but will be helpful to use later w/ everything set
         let players = parseData(playerData.players);
 
-        results.players = players;
+        results.waitlist = players;
         results.nbrOfPlayers = players.length; // max. nbr of teams that can be formed, 1 player per team
         
         res.render('index', results); // arg1 = ejs/html, objects/data to pass
@@ -49,16 +49,18 @@ app.route('/')
         results.squadNbr = parseInt(req.body.squadNbr);
         
         if (results.squadNbr) {
-            if (!results.nbrOfPlayers) {
-                let players = parseData(playerData.players);
+            let returnSquad;
+            let players = parseData(playerData.players);
 
-                results.players = players;
-                results.nbrOfPlayers = players.length; 
-            }
-            makeSquads(results);
+            results.nbrOfPlayers = players.length; 
+            // must repopulate the waitlist values each time post is clicked
+            results.waitlist = players; 
+            
+            returnSquad = makeSquads(results);
+            results.squads = returnSquad.squads;
+            results.waitlist = returnSquad.waitlist;
+
             res.render('index', results);
-        } else if (!results.nbrOfPlayers) {
-
         }
         else
             res.redirect("/");

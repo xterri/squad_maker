@@ -1,94 +1,28 @@
-/*
-** Sort and put players on a squad
-*/
+const sortBy        = require('./sortBy');
 
-// create array(s) to sort user's skill levels
-function sortSkillLevel(skillData) {
-    // sort each category
-    let skateArr = [];
-    let shootArr = [];
-    let checkArr = [];
+// Calculate players' total averages & find the mean distance for each one
+function distanceToAvg(playersArr) {
+    let totalPlayersAvg = 0;
 
-    // let user sort by any field in list/obj
-    let sort_by = (field, reverse) => {
-        let key = function(x) { return x[field] };
-        reverse = !reverse ? 1 : -1;
+    for (key in playersArr) {
+        let totalAvg = 0;
+        let player = playersArr[key];
 
-        return function (a, b) {
-            return a = key(a), b = key(b), reverse * ((a > b) - (b - a));
-        }
+        totalAvg += player.shooting;
+        totalAvg += player.skating;
+        totalAvg += player.checking;
+
+        player.average = totalAvg;
+        totalPlayersAvg += totalAvg;
     }
+    totalPlayersAvg = Math.floor(totalPlayersAvg / playersArr.length);
 
-    // sort into arrays
-    let sortSkills = (data, field) => {
-        let arr = [];
-        let avg = 0;
-        let i;
+    for (key in playersArr) {
+        playersArr[key].meanDistance = playersArr[key]['average'] - totalPlayersAvg;
+    }
+    playersArr.sort(sortBy('meanDistance', false, 'closestToZero'));
 
-        data.sort(sort_by(field, false));
-
-        for (i = 0; i <= skillData.nbrOfPlayers; i++) {
-            let key = data[i];
-            let tmp = {};
-
-            // add avg skill scored
-            if (i === skillData.nbrOfPlayers) {
-                tmp['name'] = field.toUpperCase() + ' AVG';
-                tmp[field] = Math.floor(avg / i);
-            } else {
-                tmp['name'] = data[i].name;
-                tmp[field] = data[i][field];
-                avg += tmp[field];
-            }
-            arr.push(tmp);
-        }
-        return arr;
-    };
-
-    skateArr = sortSkills(skillData.players, 'skating');
-    shootArr = sortSkills(skillData.players, "shooting");
-    checkArr = sortSkills(skillData.players, "checking");
-    // console.log(skateArr);
-    console.log('\n', shootArr);
-    // console.log('\n', checkArr);
-
-    /* COMPARE PLAYERS AND MAKE TEAMS */
-    let checkBelowAvg = true;
-    let tmpSquads = [];
-    let maxPlayers = Math.floor(skillData.nbrOfPlayers / skillData.squadNbr);
-
-   // for (var j = 0; j < skillData.nbrOfPlayers; j++) {
-        //tmpSquads[j] = [];
-        let k = 0;
-        let track = 0;
-        let max = skillData.nbrOfPlayers;
-        let tmpMax = max - 1;
-        let individualAvg = shootArr[max]['shooting'];
-        let teamAvg = 0;
-
-        while (track < maxPlayers) {    
-            if (track % 2 === 0) {
-                console.log(shootArr[k]['name']);
-                teamAvg += shootArr[k]['shooting'];
-                k++;
-            } else {
-                console.log(shootArr[tmpMax]['name']);
-                teamAvg += shootArr[tmpMax]['shooting'];
-                tmpMax--;
-            }
-            track++;
-        }
-
-        if (checkBelowAvg && (teamAvg / maxPlayers) <= individualAvg) {
-            console.log('teamAvg: ', teamAvg / maxPlayers);
-            console.log('individualAvg: ', individualAvg);
-        } else {
-            console.log('ya done fucked up');
-            console.log('teamAvg: ', teamAvg / maxPlayers);
-            console.log('individualAvg: ', individualAvg);
-        }
-    //}
-
+    return playersArr;
 };
 
 // Put players on a team
@@ -102,22 +36,32 @@ function makeTeams(playersArr, squadNbr, nbrOfPlayers) {
     teamResults.squads = [];
     teamResults.waitlist = [];
 
-    for (i = 0, k = i; i < squadNbr; i++) {
+    // populate squads with players with the lowest mean distance
+    for (i = 0; i < squadNbr; i++) {
         teamResults.squads[i] = [];
-        for (var j = 0; j < maxPlayers; j++, k++) {
-            teamResults.squads[i][j] = playersArr[k];
+        // for (var j = 0; j < maxPlayers; j++, k++) {
+            teamResults.squads[i][0] = playersArr[i];
+        // }
+        k = i;
+    }
+    
+    // populate the team with the rest of the players
+    for (i = 0; i < squadNbr; i++) {
+        for (var j = 1; j < maxPlayers; j++) {
+            teamResults.squads[i][j] = playersArr[++k];
         }
     }
 
     // rest of the players not on a team go on the waitlist
-    for ( ; k < nbrOfPlayers; k++)
+    for (i = 0; ++k < nbrOfPlayers; i++) {
         teamResults.waitlist.push(playersArr[k]);
-
+    }
     return teamResults;
 }
 
-module.exports = (squadData) => {
-    // algorithm to decide how to form teams
-    sortSkillLevel(squadData);
-    // make the teams
+module.exports = (squadData) => {  
+    let sortedArr = distanceToAvg(squadData.waitlist);
+    let results = makeTeams(sortedArr, squadData.squadNbr, squadData.nbrOfPlayers);
+
+    return results;
 }
