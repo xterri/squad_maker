@@ -39,16 +39,32 @@ function makeTeams(playersArr, squadNbr, nbrOfPlayers) {
     // populate squads with players with the lowest mean distance
     for (i = 0; i < squadNbr; i++) {
         teamResults.squads[i] = [];
-        // for (var j = 0; j < maxPlayers; j++, k++) {
-            teamResults.squads[i][0] = playersArr[i];
-        // }
+        teamResults.squads[i][0] = playersArr[i];
         k = i;
     }
     
     // populate the team with the rest of the players
     for (i = 0; i < squadNbr; i++) {
-        for (var j = 1; j < maxPlayers; j++) {
-            teamResults.squads[i][j] = playersArr[++k];
+        var skateAvg = teamResults.squads[i][0]['skating'];
+        var shootAvg = teamResults.squads[i][0]['shooting'];
+        var checkAvg = teamResults.squads[i][0]['checking'];
+
+        for (var j = 1; j <= maxPlayers; j++) {
+            if (j === maxPlayers) {
+                let avgScore = teamResults.squads[i];
+                let avgObjects = {
+                    name: 'Average',
+                    skating: Math.floor(skateAvg / j),
+                    shooting: Math.floor(shootAvg / j),
+                    checking: Math.floor(checkAvg / j)
+                }
+                avgScore.push(avgObjects);
+            } else {
+                teamResults.squads[i][j] = playersArr[++k];
+                skateAvg += playersArr[k]['skating'];
+                shootAvg += playersArr[k]['shooting'];
+                checkAvg += playersArr[k]['checking'];
+            }            
         }
     }
 
@@ -56,6 +72,7 @@ function makeTeams(playersArr, squadNbr, nbrOfPlayers) {
     for (i = 0; ++k < nbrOfPlayers; i++) {
         teamResults.waitlist.push(playersArr[k]);
     }
+
     return teamResults;
 }
 

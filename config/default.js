@@ -1,5 +1,5 @@
 let defaults = {
-    playerData:     "../test/test.json"
+    playerData:     "../test/players.json"
 };
 
 module.exports = defaults;

@@ -1,4 +1,4 @@
-'user strict';
+'use strict';
 
 const express       = require('express');
 const bodyParser    = require('body-parser'); // handles HTTP POST requests
@@ -25,7 +25,6 @@ app.use(bodyParser.urlencoded({ extended: true }));
 app.set('view engine', 'ejs');
 
 // required to serve static files from multiple directories
-    // https://stackoverflow.com/questions/29619721/add-stylesheet-to-express-app
 app.use(express.static('public'));
 
 /*** SQUAD-MAKER / MAIN PAGE ***/
@@ -33,26 +32,25 @@ app.route('/')
     .get(function(req, res) {
         results.title = "Squad Maker";
         results.squads = "";
-        // [OPTIONAL] implement a "upload" JSON file section in the code so custom/test files can be uploaded
+        // [OPTIONAL] implement an "upload" JSON file section in the code so custom/test files can be uploaded
 
-        // as soon as page is loaded, get & parse the data
-            // parsing may not be necessary but will be helpful to use later w/ everything set
-        let players = parseData(playerData.players);
+        // page is loaded, parse the data
+        let players = results.players ? results.player : parseData(playerData.players);
 
         results.waitlist = players;
-        results.nbrOfPlayers = players.length; // max. nbr of teams that can be formed, 1 player per team
+        results.nbrOfPlayers = players.length; // max. nbr of teams that can be formed
         
         res.render('index', results); // arg1 = ejs/html, objects/data to pass
     })
     .post(function(req, res) {
         results.title = "Squad Maker";
         results.squadNbr = parseInt(req.body.squadNbr);
-        
+        let players = req.body.playersList ? req.body.playersList : parseData(playerData.players);
+        results.nbrOfPlayers = players.length; 
+
         if (results.squadNbr) {
             let returnSquad;
-            let players = parseData(playerData.players);
 
-            results.nbrOfPlayers = players.length; 
             // must repopulate the waitlist values each time post is clicked
             results.waitlist = players; 
             
@@ -62,12 +60,9 @@ app.route('/')
 
             res.render('index', results);
         }
-        else
+        else {
             res.redirect("/");
-
-        // pass # of teams wanted to function to divide team
-
-        // res.render('index', results);
+        }
 });
 
 /*** FINGERS GAME PAGE ***/
@@ -87,8 +82,6 @@ app.route('/fingers')
         res.render('fingers', results);
 });
 
-let port = process.env.PORT || PORT; // production uses differen port
+let port = process.env.PORT || PORT; // production uses different port
 console.log("Server listening on port " + port);
 app.listen(port);
-
-//https://codeburst.io/build-a-weather-website-in-30-minutes-with-node-js-express-openweather-a317f904897b

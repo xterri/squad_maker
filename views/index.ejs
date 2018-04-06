@@ -13,12 +13,12 @@
                     </div>
                     <div class="col-sm">
                         <form action="/" method="post">
-                            <div class="form-group row">
+                            <!-- <div class="form-group row">
                                 <label for="playersList" class="col-sm-5">Upload Players List</label>
                                 <div class="col-sm-7">
                                     <input name="playersList" id="playersList" type="file" class="form-control-file" />
                                 </div>
-                            </div>
+                            </div> -->
                             <div class="form-group row">
                                 <label for="squadNbr" class="col-sm-5">Number of Teams</label>
                                 <div class="col-sm-7">
@@ -26,53 +26,29 @@
                                 </div>
                             </div>
                             <button type="submit" class="btn btn-primary">Submit</button>
+                            <a href="/"><button class="btn btn-primary">Reset</button></a>
                         </form>
                     </div>
                 </div>
 
-                <div class="row"></div>
-                    <div id="table-div" class="col-md">
-                        <table class="table table-hover">
-                            <thead>
-                                <tr>
-                                    <th id="table-title" colspan="4">Wait List</th>
-                                </tr>
-                                <tr id="th-subtitles">
-                                    <th>Player</th>
-                                    <th class="table-center">Skating</th>
-                                    <th class="table-center">Shooting</th>
-                                    <th class="table-center">Checking</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                <% waitlist.forEach((player) => { %>
-                                <tr>
-                                    <td><%= player.name %></td>
-                                    <td class="table-center"><%= player.skating %></td>
-                                    <td class="table-center"><%= player.shooting %></td>
-                                    <td class="table-center"><%= player.checking %></td>
-                                </tr>
-                                <% }) %>
-                            </tbody>
-                        </table>
-                    </div>
+                <div class="row">
                     <% if (squads) { %>
-                    <% var i = 1; squads.forEach((squad) => { %>
-                    <div id="table-div" class="col-md">
-                        <table class="table table-hover">
-                            <thead>
-                                <tr>
-                                    <th id="table-title" colspan="4">Squad <%= i++ %></th>
-                                </tr>
-                                <tr id="th-subtitles">
-                                    <th>Player</th>
-                                    <th class="table-center">Skating</th>
-                                    <th class="table-center">Shooting</th>
-                                    <th class="table-center">Checking</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                    <% squad.forEach((player) => { %>
+                        <div class="col-md-6">
+                        <div class="table-responsive" id="table-div">
+                            <table class="table table-hover">
+                                <thead>
+                                    <tr>
+                                        <th id="table-title" colspan="4">Wait List</th>
+                                    </tr>
+                                    <tr id="th-subtitles">
+                                        <th>Player</th>
+                                        <th class="table-center">Skating</th>
+                                        <th class="table-center">Shooting</th>
+                                        <th class="table-center">Checking</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <% waitlist.forEach((player) => { %>
                                     <tr>
                                         <td><%= player.name %></td>
                                         <td class="table-center"><%= player.skating %></td>
@@ -80,11 +56,78 @@
                                         <td class="table-center"><%= player.checking %></td>
                                     </tr>
                                     <% }) %>
-                            </tbody>
-                        </table>
+                                </tbody>
+                            </table>
+                        </div>
+                        <% } else { %>
+                        <div class="col-md">
+                            <div class="table-responsive" id="table-div">
+                                <table class="table table-hover">
+                                    <thead>
+                                        <tr>
+                                            <th id="table-title" colspan="4">Wait List</th>
+                                        </tr>
+                                        <tr id="th-subtitles">
+                                            <th>Player</th>
+                                            <th class="table-center">Skating</th>
+                                            <th class="table-center">Shooting</th>
+                                            <th class="table-center">Checking</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <% waitlist.forEach((player) => { %>
+                                        <tr>
+                                            <td><%= player.name %></td>
+                                            <td class="table-center"><%= player.skating %></td>
+                                            <td class="table-center"><%= player.shooting %></td>
+                                            <td class="table-center"><%= player.checking %></td>
+                                        </tr>
+                                        <% }) %>
+                                    </tbody>
+                                </table>
+                            </div>
+                        <% } %>
                     </div>
-                <% })} %>
+                    <% if (squads) { %>
+                    <div class="col-md-6">
+                    <% var i = 1; squads.forEach((squad) => { %>
+                        <div class="table-responsive" id="table-div">
+                            <table class="table table-hover">
+                                <thead>
+                                    <tr>
+                                        <th id="table-title" colspan="4">Squad <%= i++ %></th>
+                                    </tr>
+                                    <tr id="th-subtitles">
+                                        <th>Player</th>
+                                        <th class="table-center">Skating</th>
+                                        <th class="table-center">Shooting</th>
+                                        <th class="table-center">Checking</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                        <% squad.forEach((player) => { %>
+                                        <% if (player.name !== 'Average') { %>
+                                            <tr>
+                                                <td><%= player.name %></td>
+                                                <td class="table-center"><%= player.skating %></td>
+                                                <td class="table-center"><%= player.shooting %></td>
+                                                <td class="table-center"><%= player.checking %></td>
+                                            </tr>
+                                        <% } else { %>
+                                            <tr id='avg-highlight'>
+                                                <td><%= player.name %></td>
+                                                <td class="table-center"><%= player.skating %></td>
+                                                <td class="table-center"><%= player.shooting %></td>
+                                                <td class="table-center"><%= player.checking %></td>
+                                            </tr>
+                                        <% }}) %>
+                                </tbody>
+                            </table>
+                        </div>
+                    <% }) %>
+                    </div>
+                    <% } %>
+                </div>
             </div>
         </div>
-    </div>
 <% include ./partials/footer %>

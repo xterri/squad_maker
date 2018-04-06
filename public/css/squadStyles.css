@@ -1,11 +1,14 @@
 #table-div {
     margin: 25px 10px 0px 10px;
-    width: auto;
     border: 1px solid #ddd;
     border-radius: 5px;
 }
 table {
     table-layout: fixed;
+    width: 100%;
+}
+td {
+    word-wrap: break-word;
 }
 #table-title {
     border-top-style: none;
@@ -23,4 +26,8 @@ table {
 }
 .head {
     margin-bottom: 20px;
+}
+#avg-highlight {
+    background-color: #e3f7f9;
+    font-weight: bold;
 }
