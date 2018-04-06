@@ -1,5 +1,5 @@
 #table-div {
-    margin: 25px 10px 0px 10px;
+    margin: 15px 10px 0px 10px;
     border: 1px solid #ddd;
     border-radius: 5px;
 }
@@ -10,10 +10,19 @@ table {
 td {
     word-wrap: break-word;
 }
-#table-title {
+#table-squad {
     border-top-style: none;
     font-size: 200%;
     text-align: center;
+    color: #1f9259;
+    background-color: #e9faf1e5;
+}
+#table-wait {
+    border-top-style: none;
+    font-size: 200%;
+    text-align: center;
+    color: #c23f36;
+    background-color: #fdf2f2d0;
 }
 #th-subtitles {
     background-color: #efefef;
@@ -25,6 +34,7 @@ td {
     font-size: 75%;
 }
 .head {
+    margin-left: 15px;
     margin-bottom: 20px;
 }
 #avg-highlight {
