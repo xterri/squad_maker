@@ -40,7 +40,6 @@ function makeTeams(playersArr, squadNbr, nbrOfPlayers) {
     for (i = 0; i < squadNbr; i++) {
         teamResults.squads[i] = [];
         teamResults.squads[i][0] = playersArr[i];
-        nbrOfPlayers--;
         k = i;
     }
     
