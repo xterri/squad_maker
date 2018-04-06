@@ -1,0 +1,22 @@
+{
+  "name": "squad-maker",
+  "version": "1.0.0",
+  "description": "Creates equally matched hockey squads from a collection of players",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Teresa Huynh",
+  "license": "ISC",
+  "dependencies": {
+    "body-parser": "^1.18.2",
+    "config": "^1.30.0",
+    "ejs": "^2.5.8",
+    "express": "^4.16.3",
+    "firebase": "^4.12.1",
+    "firebase-admin": "^5.11.0",
+    "firebase-tools": "^3.17.7",
+    "nodemon": "^1.17.3",
+    "npm": "^5.8.0"
+  }
+}
