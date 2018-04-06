@@ -6,7 +6,7 @@
         <div class="main">
             <div class="center-div">
                 <div class="row">
-                    <div class="col-sm">
+                    <div class="col-sm head">
                         <h1>Squad Maker</h1>
 
                         Click here for the <a href="/fingers">Fingers Game</a>
@@ -22,7 +22,7 @@
                             <div class="form-group row">
                                 <label for="squadNbr" class="col-sm-5">Number of Teams</label>
                                 <div class="col-sm-7">
-                                    <input name="squadNbr" id="squadNbr" type="number" class="form-control" />
+                                    <input name="squadNbr" id="squadNbr" type="number" min="0" max="<%= nbrOfPlayers %>" class="form-control" />
                                 </div>
                             </div>
                             <button type="submit" class="btn btn-primary">Submit</button>

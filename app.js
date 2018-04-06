@@ -5,7 +5,8 @@ const bodyParser    = require('body-parser'); // handles HTTP POST requests
 const config        = require('config');
 const guesser       = require('./src/fingerGuess');
 
-const parseData     = require('./src/squadMaker');
+const parseData     = require('./src/parseData');
+const makeSquads    = require('./src/makeTeams');
 
 // get playerData from config/default.js
 const playerData = require('./test/' + config.get('playerData'));
@@ -39,13 +40,32 @@ app.route('/')
         let players = parseData(playerData.players);
 
         results.players = players;
+        results.nbrOfPlayers = players.length; // max. nbr of teams that can be formed, 1 player per team
         
         res.render('index', results); // arg1 = ejs/html, objects/data to pass
     })
     .post(function(req, res) {
         results.title = "Squad Maker";
+        results.squadNbr = parseInt(req.body.squadNbr);
+        
+        if (results.squadNbr) {
+            if (!results.nbrOfPlayers) {
+                let players = parseData(playerData.players);
 
-        res.render('index', results);
+                results.players = players;
+                results.nbrOfPlayers = players.length; 
+            }
+            makeSquads(results);
+            res.render('index', results);
+        } else if (!results.nbrOfPlayers) {
+
+        }
+        else
+            res.redirect("/");
+
+        // pass # of teams wanted to function to divide team
+
+        // res.render('index', results);
 });
 
 /*** FINGERS GAME PAGE ***/

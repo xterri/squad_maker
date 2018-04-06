@@ -1,5 +1,5 @@
 /*
-** Where the magic happens
+** Make a list of necessary data from player JSON file
 */
 
 // Get player data from JSON file
