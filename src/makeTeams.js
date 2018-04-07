@@ -30,7 +30,7 @@ function makeTeams(playersArr, squadNbr, nbrOfPlayers) {
     let teamResults = {};
     let i, k, j;
     let maxPlayers = Math.floor(nbrOfPlayers / squadNbr);
-    let maxPlayersNeeded = nbrOfPlayers - maxPlayers;
+    let maxPlayersNeeded = maxPlayers * squadNbr;
     // teamResults.waitlist = players not on a team
     // teamResults.squads = []; array of teams/squads formed
     teamResults.squads = [];
@@ -47,7 +47,7 @@ function makeTeams(playersArr, squadNbr, nbrOfPlayers) {
         let tmp = 0;
         while (tmp < squadNbr) {
             teamResults.squads[tmp][i] = [];
-            // console.log('squad[' + tmp + '][' + i + '] = ' + playersArr[k].name);
+            //  console.log('squad[' + tmp + '][' + i + '] = ' + playersArr[k].name);
             teamResults.squads[tmp][i] = playersArr[k++];
             tmp++;
         }
@@ -56,14 +56,13 @@ function makeTeams(playersArr, squadNbr, nbrOfPlayers) {
     for (i = 0; k < nbrOfPlayers; i++) {
         teamResults.waitlist.push(playersArr[k++]);
     }
-    
+
     // get squad averages
     for (i = 0; i < squadNbr; i++) {
         let  skateAvg = 0, 
             shootAvg = 0, 
             checkAvg = 0;
         for (j = 0; j <= maxPlayers; j++) {
-            let player = teamResults.squads[i][j];
             if (j === maxPlayers) {
                 let avgScore = teamResults.squads[i];
                 let avgObjects = {
@@ -73,7 +72,9 @@ function makeTeams(playersArr, squadNbr, nbrOfPlayers) {
                     checking: Math.floor(checkAvg / j)
                 }
                 avgScore.push(avgObjects);
-            } else {                
+            } else {
+                let player = teamResults.squads[i][j];
+                
                 skateAvg += player['skating'];
                 shootAvg += player['shooting'];
                 checkAvg += player['checking'];
