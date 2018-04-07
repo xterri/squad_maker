@@ -31,10 +31,9 @@ The approach I took for this was to calculate each player's total skills in all 
 
 I used that and subtracted the player's average with the total skill average to get the mean distance between each one. Then I sorted the average by closest to furthest from zero.
 
-With the list sorted, we use the number of squads (squadNbr) the user requested and take X (squadNbr) of players from the top of our list and put them on their own teams, afterwards the program goes down the list and puts a player on a team. 
-Once the loop reaches the end of the number of squads we need to populate and there are still more players on the list, the loop will reset the squad number and continue placing players on teams until it reaches the end or the maximum numbers of players needed (calculated by # of players / squadNbr)
+Before we populate each squad with players, we determine how many players each squad may have (maxPlayer) and how many players in total we need (maxPlayersNeeded). In a loop, the program puts the players into alternating team (ex. player[0] = squad[0], player[1] = squad[1], player[2] = squad[2], etc.), and repeats this until we reach the maxPlayersNeeded.
 
-Once all the players are placed, we run through a second code to calculate the total team average and insert it into the squad array.
+Once all the players are placed, we run through a second loop to calculate the total team average and insert it into the squad array.
 
 ### Backend (NodeJS, Express, Heroku)
 As mentioned above, Express was used to create the server side of the web application and deployed onto Heroku for public access. 
@@ -43,7 +42,5 @@ In the future, I would like to implment a file upload function and handle storin
 
 
 ### To Do / Improve on List
-* Fix the make teams code to alternate between players being placed on teams
 * Improve / Fix the sortBy function to sort all values (+/-) from closest to furthest to zero
-* Improve on optimization / complexity time (Find alternate solution to getting players averages without using two O(n^2) loops)
 * [EXTRA] Implement file upload and save it to a database (firebase)
