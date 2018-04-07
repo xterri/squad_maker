@@ -19,7 +19,7 @@ Check out demo hosted on Heroku platform:
 A brief run down of how everything was built, what and why I used some tools and how it works.
 
 ### Frontend (HTML, CSS, Bootstrap, EJS)
-See the code in [views/index.js & views/partials/](https://github.com/xterri/squad_maker/tree/master/views)
+*See the code in [views/index.js & views/partials/](https://github.com/xterri/squad_maker/tree/master/views)*
 
 Using Express to create the server side of the web application. The server listens for the "GET" or "POST" requests and responds accordingly, whether it be filling variables with certain values or running a function/program to get the results.
 
@@ -29,7 +29,7 @@ I used Bootstrap to handle the responsiveness of the web application, so it will
 One issue is that the table may sometimes shrink and cause some misalignments with the text and table, but if one turns their phone sideways to view it, it should be fine.
 
 ### Algorithm
-See the code in [src/makeTeam.js](https://github.com/xterri/squad_maker/blob/master/src/makeTeams.js)
+*See the code in [src/makeTeam.js](https://github.com/xterri/squad_maker/blob/master/src/makeTeams.js)*
 
 The approach I took for this was to calculate each player's total skills in all categories and tallied them all together to find the total skill average of all players on the waitlist.
 
@@ -46,7 +46,7 @@ player D = squad[1]
 Once all the players are placed, we run through a second loop to calculate the total team average and insert it into the squad array.
 
 ### Backend (NodeJS, Express, Heroku)
-See the code in [app.js](https://github.com/xterri/squad_maker/blob/master/app.js)
+*See the code in [app.js](https://github.com/xterri/squad_maker/blob/master/app.js)*
 
 As mentioned above, Express was used to create the server side of the web application and deployed onto Heroku for public access. 
 
