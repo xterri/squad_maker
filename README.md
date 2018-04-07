@@ -53,6 +53,6 @@ As mentioned above, Express was used to create the server side of the web applic
 In the future, I would like to implment a file upload function and handle storing and pulling it to and from a Firebase Database. 
 
 
-### To Do / Improve on List
+## To Do / Improve on List
 * Improve / Fix the sortBy function to sort all values (+/-) from closest to furthest to zero
 * [EXTRA] Implement file upload and save it to a database (firebase)
